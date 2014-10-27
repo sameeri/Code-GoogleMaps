@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Writing Google Maps API elements to the browser!</title>
+
+</head>
+<body>
+<h4>
+    We shall try and write out the various objects and functions of the Google Maps API
+    to the browser.
+</h4>
+
+<ul id="api">
+
+</ul>
+
+<!-- Load the Google Maps Api Library-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+<!-- Load helper libraries. jQuery, lodash -->
+<script src="../scripts/jquery-2.1.1.js"></script>
+<script src="../scripts/lodash-2.4.1.js"></script>
+
+<!-- Our code -->
+<script>
+
+    // log the google.maps namespace to see what we have!
+    console.log('Google Maps has been loaded:', google.maps !== undefined);
+    console.log('Google Maps API v3:', google.maps);
+    addToPage();
+    function addToPage(){
+        var keys = _.keys(google.maps);
+        _.each(keys, function createElement(key){
+            $('<li>' + key + '</li>').appendTo('#api');
+        });
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Let's create a simple map!</title>
+    <style>
+
+        #map_canvas {
+            height: 800px;
+            width: 800px;
+        }
+    </style>
+</head>
+<body>
+   <h4>Let's go ahead and create a simple map.</h4>
+   <p>We are going to create one for Norman, Oklahoma.</p>
+   <p>
+       We first create a Map options object, and have a container for the
+       map to display in. We call the constructor google.maps.Map, and pass
+       in the html container element and the map options as arguments.
+   </p>
+   <p id="map_options"></p>
+   <p>
+       The div container hosting the map should have a height and width.
+       I have set a 800x800 but you can have the whole page display the map.
+       Just make sure, the elements html, body and the map container are all
+       styled with 100% height.
+   </p>
+   <!--We need a container for the map to display on -->
+   <div id="map_canvas"></div>
+   <!-- Load the Google Maps Api Library-->
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+   <!-- Load helper libraries. jQuery, lodash -->
+   <script src="../scripts/jquery-2.1.1.js"></script>
+   <script src="../scripts/lodash-2.4.1.js"></script>
+
+   <!-- Our code -->
+   <script>
+
+       //create a map options object for Norman, Oklahoma, with an 8 level zoom.
+       create();
+       function create(){
+           var mapOptions = {
+               center : new google.maps.LatLng(35.19609380000001, -97.47957380000001),
+               zoom : 8
+           };
+
+           console.log(mapOptions);
+
+           $('<p>'+JSON.stringify(mapOptions)+'</p>').appendTo('#map_options')
+
+           var mapCanvas = $('#map_canvas');
+           console.log(mapCanvas);
+           var map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
+
+       }
+   </script>
+</body>
+</html>

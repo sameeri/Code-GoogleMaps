@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>What do we need to create a Google Map?</title>
+</head>
+<body>
+  <h4>What do we need to create a Google Map?</h4>
+  <p>
+      We need a map options object. It's just a plain object with certain properties.
+      There are two required properties. <em>center</em>  and <em>zoom</em>.
+
+  </p>
+   <p>
+       center takes a google.maps.LatLng object as it's value. We can new up an instance
+       of the google.maos.LatLng constructor by passing the Latitude and Longitude..
+
+   </p>
+  <p>
+       zoom takes a number as it's value. zoom values go from 0 on. Higher zoom values
+       zoom into the map.
+  </p>
+
+  <p id="map_options">
+      Map options with a zoom 8 for 'Norman, Oklahoma'
+  </p>
+
+  <!-- Load the Google Maps Api Library-->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+  <!-- Load helper libraries. jQuery, lodash -->
+  <script src="../scripts/jquery-2.1.1.js"></script>
+  <script src="../scripts/lodash-2.4.1.js"></script>
+
+  <!-- Our code -->
+  <script>
+
+      //create a map options object for Norman, Oklahoma, with an 8 level zoom.
+      create();
+      function create(){
+         var mapOptions = {
+             center : new google.maps.LatLng(35.19609380000001, 97.47957380000001),
+             zoom : 8
+         };
+
+          console.log(mapOptions);
+          var stringified = JSON.stringify(mapOptions);
+          $('<p>'+ stringified+'</p>').appendTo('#map_options');
+
+      }
+  </script>
+</body>
+
+
+</html>
