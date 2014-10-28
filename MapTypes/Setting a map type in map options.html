@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Setting a map type in map options!</title>
+    <style>
+        #map_canvas{
+            height: 800px;
+            width: 800px;
+        }
+    </style>
+</head>
+<body>
+    <h4>Set a maptype in map options</h4>
+    <p>When we create a map, we pass in a map options object.</p>
+    <p>We can set the map type using the mapTypeId property.</p>
+    <p>We should see my office on Van Buren street, using the satellite view.</p>
+    <p>
+        You should be able to rotate, and switch between Map, Satellite views using the controls
+        on the map.
+    </p>
+    <p id="map_options"></p>
+
+    <div id="map_canvas"></div>
+    <!-- Load the Google Maps Api Library-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+    <!-- Load helper libraries. jQuery, lodash -->
+    <script src="../scripts/jquery-2.1.1.js"></script>
+    <script src="../scripts/lodash-2.4.1.js"></script>
+
+    <!-- Our code -->
+    <script>
+
+        displayMapTypes();
+        function displayMapTypes(){
+            var mapOptions = {
+                zoom : 20,
+                center : new google.maps.LatLng(35.19609380000001, -97.47957380000001),
+                mapTypeId: google.maps.MapTypeId.SATELLITE
+            };
+            console.log(mapOptions);
+            $('<p>'+JSON.stringify(mapOptions)+'</p>').appendTo('#map_options');
+
+            var mapCanvas = $('#map_canvas').get(0);
+            var map = new google.maps.Map(mapCanvas,mapOptions);
+        }
+
+    </script>
+</body>
+</html>

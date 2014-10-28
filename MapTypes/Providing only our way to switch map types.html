@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Providing only one way to switch Map types :our way!</title>
+    <style>
+        html {height: 100%}
+        body {height: 100%}
+        #map_canvas {height: 100%; width: 100%}
+    </style>
+</head>
+<body>
+    <h4>Providing only one way to switch Map types :our way!</h4>
+    <p>
+        We can disable the controls on the page. We will however look at control
+        options later. For now, we just disable the MapType Control by setting the
+        mapTypeControl property  of the map options object to false. NOtice on the
+        map that the control now does not show.
+    </p>
+
+    <button id="show_roadmap">RoadMap[Default]</button>
+    <button id="show_terrain">Terrain</button>
+    <button id="show_hybrid">Hybrid</button>
+    <button id="show_satellite">Satellite</button>
+
+    <div id="map_options"></div>
+    <div id="map_canvas"></div>
+
+    <!-- Load the Google Maps Api Library-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+    <!-- Load helper libraries. jQuery, lodash -->
+    <script src="../scripts/jquery-2.1.1.js"></script>
+    <script src="../scripts/lodash-2.4.1.js"></script>
+
+    <script>
+    //Self invoking function
+    (function displayMapTypes(){
+        var mapOptions = {
+            zoom : 7,
+            center : new google.maps.LatLng(35.19609380000001, -97.47957380000001),
+            mapTypeControl: false
+        };
+
+        console.log(mapOptions);
+        $('<p>'+JSON.stringify(mapOptions)+'</p>').appendTo('#map_options');
+
+        var mapCanvas = $('#map_canvas').get(0);
+        var map = new google.maps.Map(mapCanvas,mapOptions);
+
+        // We are refactoring from the previous code sample to have only
+        // one function, instead of four different event handlers
+        function showMap(){
+           //Get the button id
+           var id = $(this).attr('id');
+
+           // Our naming convention is show_maptype.
+           // So we can split by an _
+           // Since the constant is all upper case, we convert so
+           var maptype = id.split('_')[1].toUpperCase();
+
+           //set the map type
+           console.log('Clicked button', id);
+           map.setMapTypeId(google.maps.MapTypeId[maptype]);
+        }
+
+
+        //We can add one event handler, to all the buttons
+
+        $('#show_roadmap').on('click', showMap);
+        $('#show_terrain').on('click', showMap);
+        $('#show_hybrid').on('click',  showMap);
+        $('#show_satellite').on('click',  showMap);
+
+        // We could have also had a generic button click event handler registered
+        // instead of 4 different registrations
+
+    })();
+  </script>
+
+</body>
+</html>

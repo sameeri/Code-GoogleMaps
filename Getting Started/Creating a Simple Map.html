@@ -37,9 +37,10 @@
    <!-- Our code -->
    <script>
 
-       //create a map options object for Norman, Oklahoma, with an 8 level zoom.
+
        create();
        function create(){
+           //create a map options object for Norman, Oklahoma, with an 8 level zoom.
            var mapOptions = {
                center : new google.maps.LatLng(35.19609380000001, -97.47957380000001),
                zoom : 8
@@ -47,7 +48,7 @@
 
            console.log(mapOptions);
 
-           $('<p>'+JSON.stringify(mapOptions)+'</p>').appendTo('#map_options')
+           $('<p>'+JSON.stringify(mapOptions)+'</p>').appendTo('#map_options');
 
            var mapCanvas = $('#map_canvas');
            console.log(mapCanvas);

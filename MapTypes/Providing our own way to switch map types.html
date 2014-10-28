@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Providing way to switch Map type</title>
+    <style>
+        html {height: 100%}
+        body {height: 100%}
+        #map_canvas {height: 100%; width: 100%}
+    </style>
+</head>
+<body>
+    <h4>Switching Map Types</h4>
+    <p>After the map has loaded, we can switch a map type.</p>
+    <p>
+        We would have to handle an event like a button click and switch a map type
+        using map.setMapTypeId() function, by passing in a map type id.  Let's have
+        some buttons.
+    </p>
+
+    <button id="show_roadmap">RoadMap[Default]</button>
+    <button id="show_terrain">Terrain</button>
+    <button id="show_hybrid">Hybrid</button>
+    <button id="show_satellite">Satellite</button>
+
+    <div id="map_options"></div>
+    <div id="map_canvas"></div>
+
+    <!-- Load the Google Maps Api Library-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+    <!-- Load helper libraries. jQuery, lodash -->
+    <script src="../scripts/jquery-2.1.1.js"></script>
+    <script src="../scripts/lodash-2.4.1.js"></script>
+
+    <script>
+    //Self invoking function
+    (function displayMapTypes(){
+        var mapOptions = {
+            zoom : 7,
+            center : new google.maps.LatLng(35.19609380000001, -97.47957380000001)
+        };
+
+        console.log(mapOptions);
+        $('<p>'+JSON.stringify(mapOptions)+'</p>').appendTo('#map_options');
+
+        var mapCanvas = $('#map_canvas').get(0);
+        var map = new google.maps.Map(mapCanvas,mapOptions);
+
+        function showRoadMap(){
+           map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+        }
+        function showTerrain(){
+           map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+        }
+        function showHybrid(){
+           map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+        }
+        function showSatellite(){
+           map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+        }
+
+    //Let's add some event handlers
+        $('#show_roadmap').on('click', showRoadMap);
+        $('#show_terrain').on('click', showTerrain);
+        $('#show_hybrid').on('click', showSatellite);
+        $('#show_hybrid').on('click', showHybrid);
+
+    })();
+  </script>
+
+</body>
+</html>
