@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Configuring controls : Styling</title>
+    <style>
+        html, body {
+            height: 100%
+        }
+
+        #map_canvas {
+            height: 100%;
+            width: 100%
+        }
+    </style>
+</head>
+<body>
+<h4> Configuring controls : Styling controls</h4>
+
+<p> Each control can be configured in certain ways.</p>
+<p>
+    Each control has an options object that we can set in map options object.
+    For example, the mapTypeControl has mapTypeControlOptions, the zoomControl
+    has the zoomControlOptions etc.
+</p>
+<p>
+    The control options can have a style and a position.
+</p>
+
+<p>
+    Styles are predifined for the native controls. For example
+    the zoom control has it's styles predefined in the google.maps.ZoomControlStyle object of the
+    API.
+</p>
+<p>
+    For example we can change the mapType control to be a dropdown menu for selecting the map type.
+    We set the style property of the mapControlOptions object. We set style to google.maps.MapTypeControlStyle to DROPDOWN_MENU.
+</p><p>
+    Instead of a slider, we can have +/- for zoom options. We can change the zoom control to have
+    +/- by setting the style property of the zoomControlOptions object. We set style to google.maps.ZoomControlStyle.SMALL.
+</p>
+
+<div id="map_options"></div>
+<div id="map_canvas"></div>
+
+<!-- Load the Google Maps Api Library-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+<!-- Load helper libraries. jQuery, lodash -->
+<script src="../scripts/jquery-2.1.1.js"></script>
+<script src="../scripts/lodash-2.4.1.js"></script>
+
+<script>
+    //Self invoking function
+    (function enableAllControlsByUsingMapOptions() {
+        // I am setting my own property to remember the name
+        // of the location. This is not a property that google
+        // maps recognizes.
+
+        //Set Styles using the control options object
+
+        var mapOptions = {
+            zoom: 7,
+            center: new google.maps.LatLng(33.7550, -84.3900),
+            locationName: 'Atlanta, GA',
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL
+            },
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+            }
+        };
+
+        console.log(mapOptions);
+        $('<p>' + JSON.stringify(mapOptions) + '</p>').appendTo('#map_options');
+
+        var mapCanvas = $('#map_canvas').get(0);
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map control style options</title>
+</head>
+<body>
+   <h4>Exploring the various style options for controls</h4>
+   <p>
+       The controls available natively can be styled. They have specific style options
+       available and each one of them is an enumeration constants stored in objects.
+       They have a naming convention [ControlName]ControlStyle. So for example, the scale
+       control has it's style options in google.maps.ScaleControlStyle.
+   </p>
+   <p>
+       We would love to explore the options. Here, we are going to see all options
+       output to the browser, console windows. No map display. Only JavaScript code and object love.
+       We can observe the options are actual properties with a number associated with each one
+       of them.
+   </p>
+   <ul id="control_style_options"></ul>
+
+
+   <!-- Load the Google Maps Api Library-->
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+   <!-- Load helper libraries. jQuery, lodash -->
+   <script src="../scripts/jquery-2.1.1.js"></script>
+   <script src="../scripts/lodash-2.4.1.js"></script>
+
+   <script>
+       //Self invoking function
+       (function enableAllControlsByUsingMapOptions() {
+           //exploring the various style options.
+
+          var api = _.keys(google.maps);
+          var styleOptionsApi = _.where(api, function findStyleApi(apiName){
+            if(apiName.indexOf('Style') > 0)  return apiName;
+          });
+
+          console.log(styleOptionsApi);
+
+           _.each(styleOptionsApi, function writeStyleOption(styleOptionsName){
+
+               var styleOptionsObject = google.maps[styleOptionsName]
+               console.log(styleOptionsName);
+               console.log(styleOptionsObject);
+
+               $('<li>'+ styleOptionsName + ':' + JSON.stringify(styleOptionsObject) + '</li>').appendTo($('#control_style_options'));
+           });
+       })();
+   </script>
+</body>
+</html>

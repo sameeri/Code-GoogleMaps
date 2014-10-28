@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Configuring controls : Positioning controls</title>
+    <style>
+        html, body {
+            height: 100%
+        }
+
+        #map_canvas {
+            height: 100%;
+            width: 100%
+        }
+    </style>
+</head>
+<body>
+<h4> Configuring controls : Positioning </h4>
+
+<p> Each control can be configured in certain ways.</p>
+<p>
+    Each control has an options object that we can set in map options object.
+    For example, the mapTypeControl has mapTypeControlOptions, the zoomControl
+    has the zoomControlOptions etc.
+</p>
+<p>
+    The control options can have a style and a position.
+</p>
+
+<p>
+    Here we shall see how to position our controls. The position property of the
+    map control options object will let this happen.
+</p>
+<p>
+    The position property has a value of a ControlPosition. The ControlPosition
+    object has a set of 12 values to specify position information on the map.
+</p>
+<div id="control_position_options"></div>
+<div id="map_options"></div>
+<div id="map_canvas"></div>
+
+<!-- Load the Google Maps Api Library-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+<!-- Load helper libraries. jQuery, lodash -->
+<script src="../scripts/jquery-2.1.1.js"></script>
+<script src="../scripts/lodash-2.4.1.js"></script>
+
+<script>
+    //Self invoking function
+    (function enableAllControlsByUsingMapOptions() {
+        // I am setting my own property to remember the name
+        // of the location. This is not a property that google
+        // maps recognizes.
+
+        //Set Styles using the control options object
+
+        var mapOptions = {
+            zoom: 7,
+            center: new google.maps.LatLng(33.7550, -84.3900),
+            locationName: 'Atlanta, GA',
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL,
+                position: google.maps.ControlPosition.BOTTOM_LEFT
+            },
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+                position: google.maps.ControlPosition.TOP_CENTER
+            }
+        };
+
+        console.log(mapOptions);
+        $('<p>' + 'Control Position options: ' + JSON.stringify(google.maps.ControlPosition) + '</p>').appendTo('#control_position_options');
+        $('<p>' + 'Our map options: '+ JSON.stringify(mapOptions) + '</p>').appendTo('#map_options');
+
+        var mapCanvas = $('#map_canvas').get(0);
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+    })();
+</script>
+</body>
+</html>
