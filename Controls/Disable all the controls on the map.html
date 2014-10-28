@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disabling controls</title>
+    <style>
+        html, body {
+            height: 100%
+        }
+
+        #map_canvas {
+            height: 100%;
+            width: 100%
+        }
+    </style>
+</head>
+<body>
+<h4> How can we disable all the controls on the map? </h4>
+
+<p> Well, by default some controls are enabled on the maps.
+    The controls that are available are MapType, Zoom, Pan, Scale, Street View,
+    Rotate(45 degree imagery), and Overview.
+    We can set the disableDefaultUI property to true, in the
+    map options object to disable all controls. We can later add what we need.</p>
+
+<div id="map_options"></div>
+<div id="map_canvas"></div>
+
+<!-- Load the Google Maps Api Library-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+<!-- Load helper libraries. jQuery, lodash -->
+<script src="../scripts/jquery-2.1.1.js"></script>
+<script src="../scripts/lodash-2.4.1.js"></script>
+
+<script>
+    //Self invoking function
+    (function disableAllControlsOnTheMap() {
+        // I am setting my own property to remember the name
+        // of the location. This is not a property that google
+        // maps recognizes.
+        var mapOptions = {
+            zoom: 7,
+            center: new google.maps.LatLng(41.8500300, -87.6500500),
+            locationName: 'Chicago, IL',
+            disableDefaultUI: true
+        };
+
+        console.log(mapOptions);
+        $('<p>' + JSON.stringify(mapOptions) + '</p>').appendTo('#map_options');
+
+        var mapCanvas = $('#map_canvas').get(0);
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+    })();
+</script>
+</body>
+</html>

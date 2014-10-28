@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enabling controls</title>
+    <style>
+        html, body {
+            height: 100%
+        }
+
+        #map_canvas {
+            height: 100%;
+            width: 100%
+        }
+    </style>
+</head>
+<body>
+<h4> Enable controls by setting them up in map options. </h4>
+
+<p> First we can disable all the controls by setting the disableDefaultUI to true.</p>
+<p>
+    We can enable each control by setting the respective control to true, in the map options
+    object.
+</p>
+
+<div id="map_options"></div>
+<div id="map_canvas"></div>
+
+<!-- Load the Google Maps Api Library-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+<!-- Load helper libraries. jQuery, lodash -->
+<script src="../scripts/jquery-2.1.1.js"></script>
+<script src="../scripts/lodash-2.4.1.js"></script>
+
+<script>
+    //Self invoking function
+    (function enableAllControlsByUsingMapOptions() {
+        // I am setting my own property to remember the name
+        // of the location. This is not a property that google
+        // maps recognizes.
+
+        // Setting disableDefaultUI to true, removes all controls
+        // from the maps.
+
+        var mapOptions = {
+            zoom: 7,
+            center: new google.maps.LatLng(41.8500300, -87.6500500),
+            locationName: 'Chicago, IL',
+            disableDefaultUI: true,
+            panControl: true,
+            zoomControl: true,
+            mapTypeControl: true,
+            scaleControl: true,
+            streetViewControl: true,
+            overviewMapControl: true
+        };
+
+        console.log(mapOptions);
+        $('<p>' + JSON.stringify(mapOptions) + '</p>').appendTo('#map_options');
+
+        var mapCanvas = $('#map_canvas').get(0);
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+    })();
+</script>
+</body>
+</html>
