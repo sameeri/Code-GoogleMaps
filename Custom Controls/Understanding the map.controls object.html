@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Understanding the map.controls object!</title>
+    <style>
+        html, body {height: 100%}
+        #map_canvas{height: 100%; width:100%}
+    </style>
+</head>
+<body>
+    <h4> Understanding the map.controls object!</h4>
+    <p> The map object has a controls property. This is an array of ControlPosition objects.</p>
+    <p>
+        Since controls can be placed at different locations on the map, each ControlPosition
+        corresponds to the location that controls can be placed at.
+    </p>
+    <p>
+        Each position can have 0 or more controls placed there. So each control position
+        has an array of controls at the position. This is an MVCArray according to Google.
+    </p>
+    <p>
+        We would like to observe these arrays, in this code sample. Understanding this,
+        we can try to add our own custom control to this array. Total Awesomeness!
+    </p>
+    <p>
+        There are a total of 14 allowed and available positions. So the controls array should
+        have 14 elements in it's array.
+    </p>
+
+    <div id="map_controls">
+    </div>
+
+    <div id="map_canvas">
+     </div>
+
+    <!-- Load the Google Maps Api Library-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+    <!-- Load helper libraries. jQuery, lodash -->
+    <script src="../scripts/jquery-2.1.1.js"></script>
+    <script src="../scripts/lodash-2.4.1.js"></script>
+    <script>
+
+        var map;
+        var westchester = new google.maps.LatLng(39.9606643,-75.6054882);
+
+        function initialize() {
+            var mapDiv = document.getElementById('map_canvas');
+            var mapOptions = {
+                zoom: 8,
+                center: westchester
+            }
+            map = new google.maps.Map(mapDiv, mapOptions);
+
+            console.log(map.controls);
+
+            $('<p>'+ "map control positions array:"+ JSON.stringify(map.controls) +'</p>').appendTo('#map_controls');
+            $('<p>'+ "map controls at position TOP_LEFT:"+ JSON.stringify(map.controls[google.maps.ControlPosition.TOP_RIGHT]) +'</p>').appendTo('#map_controls');
+
+        }
+
+        // Google maps has event handlers
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+</body>
+</html>
