@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple custom control</title>
+    <style>
+        html, body {height:100%}
+        #map_canvas {height:100%; width:100%}
+        .custom_control {padding: 5px}
+        .custom_control_UI {
+            background-color : white;
+            border-style : solid;
+            border-width : 2px;
+            cursor : pointer;
+            text-align : center;
+        }
+        .custom_control_text {
+            font-family : Arial,sans-serif;
+            font-size : 12px;
+            padding-left : 4px;
+            padding-right : 4px;
+        }
+    </style>
+</head>
+<body>
+<h4>Adding our own controls.</h4>
+<h4></h4>
+<p>We just need to add to the map.controls array.</p>
+<div id="map_canvas"></div>
+
+<!-- Load the Google Maps Api Library-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeLZMuSmH0AR4sGCz4uTR4L3MG5_BGxRw"></script>
+
+<!-- Load helper libraries. jQuery, lodash -->
+<script src="../scripts/jquery-2.1.1.js"></script>
+<script src="../scripts/lodash-2.4.1.js"></script>
+<script>
+
+    var map;
+    var norman = new google.maps.LatLng(35.19609380000001, -97.47957380000001);
+    var hyderabad = new google.maps.LatLng(17.3660, 78.4760);
+
+
+    function HomeControl(map, controlDiv, displayText, mapCenter) {
+
+        $(controlDiv).addClass('custom_control');
+
+        // Set CSS for the control border
+        var controlUI = document.createElement('div');
+        controlUI.title = displayText;
+        $(controlUI).addClass('custom_control_UI');
+        $(controlUI).appendTo(controlDiv);
+
+        // Set CSS for the control interior
+        var controlText = document.createElement('div');
+        controlText.innerHTML = '<b>'+displayText+'</b>';
+        $(controlText).addClass('custom_control_text');
+        $(controlText).appendTo(controlUI);
+
+        google.maps.event.addDomListener(controlUI, 'click', function() {
+            map.setCenter(mapCenter);
+        });
+
+
+    }
+
+    function initialize() {
+        var mapDiv = document.getElementById('map_canvas');
+        var mapOptions = {
+            zoom: 8,
+            center: norman
+        }
+        map = new google.maps.Map(mapDiv, mapOptions);
+
+
+
+        // We will create two controls on the map.
+        // So we need two div elements.
+
+        //Create the elements
+        var homeUSControlDiv = document.createElement('div');
+        var homeIndiaControlDiv = document.createElement('div');
+
+        //Create the controls using the constructor
+        var homeUSControl = new HomeControl(map, homeUSControlDiv, 'Home in US', norman);
+        var homeIndiaControl = new HomeControl(map, homeIndiaControlDiv,'Home in India', hyderabad);
+
+
+        homeUSControlDiv.index = 1
+        homeIndiaControlDiv.index = 2
+
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(homeIndiaControlDiv);
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(homeUSControlDiv);
+    }
+
+    // Google maps has event handlers
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</body>
+</html>
