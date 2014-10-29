@@ -7,13 +7,14 @@
         #map_canvas {height:100%; width:100%}
         .custom_control {padding: 5px}
         .custom_control_UI {
-            background-color : white;
+            background-color : deeppink;
             border-style : solid;
             border-width : 2px;
             cursor : pointer;
             text-align : center;
         }
         .custom_control_text {
+            color: white;
             font-family : Arial,sans-serif;
             font-size : 12px;
             padding-left : 4px;
@@ -23,8 +24,20 @@
 </head>
 <body>
 <h4>Adding our own controls.</h4>
-<h4></h4>
-<p>We just need to add to the map.controls array.</p>
+<p>
+    map.controls is an array of google.maps.ControlPosition objects.
+    Each ControlPosition stores an MVCArray of the controls displayed in that position.
+    The API places controls at each position by the order of an index property;
+    controls with a lower index are placed first.
+    For example, two custom controls at position TOP_CENTER will be laid out according to this index order, with lower index values taking precedence.
+</p>
+<p>
+    We can access the MVCArray of controls at a particular position,
+    by passing the position as the index for the controls array.
+    Example: map.controls[google.maps.ControlPosition.TOP_CENTER] will give us a reference
+    to the MVCArray of controls..We can add our control to this array using the push command.
+</p>
+<p>We just need to add our custom control to the map controls array.</p>
 <div id="map_canvas"></div>
 
 <!-- Load the Google Maps Api Library-->
@@ -40,7 +53,7 @@
     var hyderabad = new google.maps.LatLng(17.3660, 78.4760);
 
 
-    function HomeControl(map, controlDiv, displayText, mapCenter) {
+    function CustomControl(map, controlDiv, displayText, mapCenter) {
 
         $(controlDiv).addClass('custom_control');
 
@@ -81,8 +94,8 @@
         var homeIndiaControlDiv = document.createElement('div');
 
         //Create the controls using the constructor
-        var homeUSControl = new HomeControl(map, homeUSControlDiv, 'Home in US', norman);
-        var homeIndiaControl = new HomeControl(map, homeIndiaControlDiv,'Home in India', hyderabad);
+        var homeUSControl = new CustomControl(map, homeUSControlDiv, 'Home in US', norman);
+        var homeIndiaControl = new CustomControl(map, homeIndiaControlDiv,'Home in India', hyderabad);
 
 
         homeUSControlDiv.index = 1
